@@ -1,0 +1,19 @@
+{
+	"name": "closure",
+	"license": "MIT",
+	"tags": [
+		"js",
+		"uglify",
+		"minify",
+		"obfuscation",
+    "closure"
+	],
+	"classPath": "src",
+	"description": "Google Closure Compiler plugin for Haxe builds.",
+	"contributors": [
+		"back2dos"
+	],
+	"releasenote": "Initial Release.",
+	"version": "0.0.0",
+	"url": "http://githum.com/back2dos/closure"
+}
