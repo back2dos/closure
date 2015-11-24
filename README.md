@@ -2,12 +2,14 @@
 
 This library plugs in the google closure compiler into your build.
 
-Usage:
+Usage in haxe builds:
   
 ```
 -lib closure
-# to turn on advanced compilatoin
+
+# turn on advanced compilation:
 -D closure_advanced
-# to turn on pretty printing
+
+# turn on pretty printing:
 -D closure_prettyprint
 ```
