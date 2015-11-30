@@ -12,4 +12,7 @@ Usage in haxe builds:
 
 # turn on pretty printing:
 -D closure_prettyprint
+
+# overwrite original output rather then generating a .min.js next to it
+-D closure_overwrite
 ```

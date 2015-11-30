@@ -1,8 +1,10 @@
 package closure;
 import haxe.macro.Context;
+import sys.FileSystem;
 
 using StringTools;
 using haxe.io.Path;
+
 class Compiler {
 
   static function use() 
@@ -14,6 +16,7 @@ class Compiler {
       Context.error('Expected .js extension for output file $out', Context.currentPos());
     
     var min = out.substr(0, out.length - 3) + '.min.js';
+    
     var jar = Context.getPosInfos((macro null).pos).file.directory() + '/cli/compiler.jar';
     
     Sys.command('java', ['-jar', jar, 
@@ -22,6 +25,11 @@ class Compiler {
       '--js', out,
       '--js_output_file', min,
     ]);
+    
+    #if closure_overwrite
+      FileSystem.deleteFile(out);
+      FileSystem.rename(min, out);
+    #end
   }
   
 }
