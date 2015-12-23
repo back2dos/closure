@@ -24,6 +24,8 @@ class Compiler {
       '--compilation_level', #if closure_advanced 'ADVANCED' #else 'SIMPLE' #end,
       '--js', out,
       '--js_output_file', min,
+      #if closure_quiet '--warning_level', 'QUIET', #end
+      #if closure_verbose '--warning_level', 'VERBOSE', #end
     ]);
     
     #if closure_overwrite

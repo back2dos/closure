@@ -13,6 +13,10 @@ Usage in haxe builds:
 # turn on pretty printing:
 -D closure_prettyprint
 
-# overwrite original output rather then generating a .min.js next to it
+# overwrite original output rather then generating a .min.js next to it:
 -D closure_overwrite
+
+# change the level of debugging information:
+-D closure_quiet
+-D closure_verbose
 ```
