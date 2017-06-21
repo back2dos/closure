@@ -1,8 +1,8 @@
 # closure
 
-This library plugs in the google closure compiler into your build.
+This library plugs in the Google Closure Compiler into your build.
 
-Usage in haxe builds:
+Usage in Haxe builds:
   
 ```shell
 -lib closure
