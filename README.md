@@ -21,4 +21,17 @@ Usage in Haxe builds:
 
 # set warning level. Can be DEFAULT, VERBOSE or QUIET.
 -D closure_warning_level=QUIET
+
+
+# disable closure compiler from being executed:
+-D closure_disabled
 ```
+
+### How to install
+
+Closure is available on haxelib [lib.haxe.org/p/closure](https://lib.haxe.org/p/closure). To install:
+```shell
+haxelib install closure
+```
+
+The Google Closure Compiler requires Java Runtime Environment version 7+ to be installed.
