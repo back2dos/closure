@@ -1,0 +1,34 @@
+sudo: required
+dist: trusty
+
+language: haxe
+
+os:
+  - linux
+  - osx
+  
+haxe:
+  - "3.4.0"
+  - development
+  
+matrix:
+  allow_failures:
+    - haxe: development
+    
+install:
+  - haxelib install travix
+  - haxelib run travix install
+
+script:
+  - haxelib run travix node
+  - haxelib run travix node -D closure_overwrite
+
+env:
+  - secure: "ebwCRva3eBHxSjQH5qqfb5ZeLInWyimHFbNeVyN1fkzsszunlmWedmpbfOg9qmWtgeC4UTv2yy+YybLIifE+V9YZKk4yI/O0z6ccXGdsgo/HTLMrtdhQEpPKC1p+uRId6yT0xzuYbFfyURwLXlDgxSrShL/oa+bHvc1KjKvqjrj7CZAQ8XrgCXeTHMVlK+JXSeOJHnbk1IVLf/gwhkwa3gV+nE01ug/PyKotwrM46LmnfBBEKOMlNO9YX26eYsQl4Jy0LH0Hp96VYszMmfy7099rZ3Jpa2EQumVFItc6T+jIKDWJhFmztf9/9oV9AT0+FhSI9APmtDTXvJsejNegvRMutvDVKQaFcq55NBpgx1YUb6hhJLk0Q3KBP4KtEnZaIS7zyW51DAhmrgtx+etUmI+FJ37yi2O2Hc3xjj45NTj07JhnPepZPXXP5tzLEQKrjxmlulM7k78eBdXANPsOrulOkxLhGWj62HpJ5ydv5JvN+JDfptscyzPz3S5ccWn6L9YDHQsvX7OCsasFWo0jmdGOfulgeSaUcO6oUx2T0FP0fRNRS1mrgxBPutFlqqxZiuHfA8BmDe2Tph0KOAbKArTPV0Luiq6Awfb/jZRMBPWGOeA4gvR0/TnCn1zLbpH9vrMwAd86ZfXsLkq4V99Rc8EWB9g1yI4uLm/OujlHKm8="
+
+jobs:
+  include:
+    - stage: deploy
+      os: linux
+      script: skip
+      after_success: npm run --silent travix release

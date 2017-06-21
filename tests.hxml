@@ -1,0 +1,4 @@
+-cp tests
+-main Main
+-dce full
+-D closure_overwrite
