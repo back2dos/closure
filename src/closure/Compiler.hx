@@ -25,10 +25,13 @@ class Compiler {
       '--js', out,
       '--js_output_file', min,
       #if closure_externs 
-       '--externs',Context.definedValue("closure_externs"), 
+      '--externs',Context.definedValue("closure_externs"), 
       #end
       #if closure_language_in
       '--language_in',Context.definedValue("closure_language_in"),
+      #end
+      #if closure_warning_level
+      '--warning_level',Context.definedValue("closure_warning_level"),
       #end
     ]);
     
