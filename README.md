@@ -4,7 +4,7 @@ This library plugs in the google closure compiler into your build.
 
 Usage in haxe builds:
   
-```
+```shell
 -lib closure
 
 # turn on advanced compilation:
