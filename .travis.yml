@@ -3,10 +3,15 @@ dist: trusty
 
 language: haxe
 
+addons:
+  apt:
+    packages:
+      - oracle-java8-set-default
+
 os:
   - linux
   - osx
-  
+
 haxe:
   - "3.4.0"
   - development
