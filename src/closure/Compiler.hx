@@ -7,8 +7,11 @@ using haxe.io.Path;
 
 class Compiler {
 
-  static function use() 
+  static function use() {
+    #if !closure_disabled
     Context.onAfterGenerate(compile);
+    #end
+  }
   
   static function compile() {
     var out = haxe.macro.Compiler.getOutput();
