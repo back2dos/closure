@@ -29,9 +29,6 @@ class Compiler {
       #end
       #if closure_language_in
       '--language_in',Context.definedValue("closure_language_in"),
-      #end         
-      #if closure_pretty_print
-      '--formatting','pretty_print',
       #end
     ]);
     
