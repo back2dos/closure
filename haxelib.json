@@ -13,7 +13,7 @@
 	"contributors": [
 		"back2dos"
 	],
-	"releasenote": "Various minor fixes.",
-	"version": "0.1.1",
-	"url": "http://github.com/back2dos/closure"
+	"releasenote": "Added a few extra closure compiler settings.",
+	"version": "0.1.2",
+	"url": "https://github.com/back2dos/closure"
 }
