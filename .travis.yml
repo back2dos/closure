@@ -25,4 +25,4 @@ jobs:
     - stage: deploy
       os: linux
       script: skip
-      after_success: npm run --silent travix release
+      after_success: haxelib run travix release
