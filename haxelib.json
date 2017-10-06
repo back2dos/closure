@@ -13,7 +13,7 @@
 	"contributors": [
 		"back2dos"
 	],
-	"releasenote": "Updated closure.jar to v20170626",
-	"version": "0.1.4",
+	"releasenote": "Source map support",
+	"version": "0.2.0",
 	"url": "https://github.com/back2dos/closure"
 }
