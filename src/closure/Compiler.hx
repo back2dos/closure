@@ -4,6 +4,7 @@ import sys.FileSystem;
 
 using StringTools;
 using haxe.io.Path;
+import sys.io.File;
 
 class Compiler {
 
@@ -13,6 +14,22 @@ class Compiler {
     #end
   }
   
+  static function removeSourceMapLine( inputpath, outputpath ) {
+    var input = File.read(inputpath);
+    var output = File.write(outputpath);
+    var regex = ~/^\/\/[@#] ?sourceMappingURL=.+$/;
+    while( ! input.eof() )
+    {
+      var line = input.readLine();
+      if( regex.match(line) )
+        continue;
+      else
+        output.writeString( line + "\n" );
+    }
+    input.close();
+    output.close();
+  }
+
   static function compile() {
     var out = haxe.macro.Compiler.getOutput();
     if (!out.endsWith('.js'))
@@ -21,26 +38,45 @@ class Compiler {
     var min = out.substr(0, out.length - 3) + '.min.js';
     
     var jar = Context.getPosInfos((macro null).pos).file.directory() + '/cli/compiler.jar';
-    
+    var map = Context.definedValue("closure_create_source_map");
+
+    var tmp = out;
+    #if closure_create_source_map
+      tmp += ".tmp";
+      removeSourceMapLine( out, tmp );
+    #end
+
     Sys.command('java', ['-jar', jar, 
       #if closure_prettyprint '--formatting=pretty_print', #end
       '--compilation_level', #if closure_advanced 'ADVANCED' #else 'SIMPLE' #end,
-      '--js', out,
-      '--js_output_file', min,
+      '--js', tmp,
+      '--js_output_file', min
       #if closure_externs 
-      '--externs',Context.definedValue("closure_externs"), 
+      , '--externs',Context.definedValue("closure_externs")
       #end
       #if closure_language_in
-      '--language_in',Context.definedValue("closure_language_in"),
+      , '--language_in',Context.definedValue("closure_language_in")
       #end
       #if closure_warning_level
-      '--warning_level',Context.definedValue("closure_warning_level"),
+      , '--warning_level',Context.definedValue("closure_warning_level")
+      #end
+      #if closure_create_source_map
+      , '--create_source_map', map
       #end
     ]);
     
     #if closure_overwrite
       FileSystem.deleteFile(out);
       FileSystem.rename(min, out);
+    #end
+
+    #if closure_create_source_map
+    {
+      FileSystem.deleteFile(tmp);
+      var output = File.append(min);
+      output.writeString('\n//# sourceMappingURL=${map.split('/').pop()}');
+      output.close();
+    }
     #end
   }
   
