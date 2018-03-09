@@ -13,7 +13,7 @@ class Compiler {
     Context.onAfterGenerate(compile);
     #end
   }
-  
+
   static function removeSourceMapLine( inputpath, outputpath ) {
     var input = File.read(inputpath);
     var output = File.write(outputpath);
@@ -34,24 +34,29 @@ class Compiler {
     var out = haxe.macro.Compiler.getOutput();
     if (!out.endsWith('.js'))
        Context.warning('Expected .js extension for output file $out', Context.currentPos());
-    
-    var min = out.substr(0, out.length - 3) + '.min.js';
-    
-    var jar = Context.getPosInfos((macro null).pos).file.directory() + '/cli/compiler.jar';
+
     var map = Context.definedValue("closure_create_source_map");
 
-    var tmp = out;
+    compileFile(out, map);
+  }
+
+  static public function compileFile( path: String, map: String ) {
+    var min = path.substr(0, path.length - 3) + '.min.js';
+
+    var jar = Context.getPosInfos((macro null).pos).file.directory() + '/cli/compiler.jar';
+
+    var tmp = path;
     #if closure_create_source_map
       tmp += ".tmp";
-      removeSourceMapLine( out, tmp );
+      removeSourceMapLine( path, tmp );
     #end
 
-    Sys.command('java', ['-jar', jar, 
+    Sys.command('java', ['-jar', jar,
       #if closure_prettyprint '--formatting=pretty_print', #end
       '--compilation_level', #if closure_advanced 'ADVANCED' #else 'SIMPLE' #end,
       '--js', tmp,
       '--js_output_file', min
-      #if closure_externs 
+      #if closure_externs
       , '--externs',Context.definedValue("closure_externs")
       #end
       #if closure_language_in
@@ -64,10 +69,10 @@ class Compiler {
       , '--create_source_map', map
       #end
     ]);
-    
+
     #if closure_overwrite
-      FileSystem.deleteFile(out);
-      FileSystem.rename(min, out);
+      FileSystem.deleteFile(path);
+      FileSystem.rename(min, path);
     #end
 
     #if closure_create_source_map
@@ -79,5 +84,5 @@ class Compiler {
     }
     #end
   }
-  
+
 }
