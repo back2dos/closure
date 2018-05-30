@@ -9,7 +9,7 @@ import sys.io.File;
 class Compiler {
 
   static function use() {
-    #if !closure_disabled
+    #if (!closure_disabled && !closure_slavemode)
     Context.onAfterGenerate(compile);
     #end
   }
