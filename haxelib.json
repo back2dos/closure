@@ -13,7 +13,7 @@
 	"contributors": [
 		"back2dos"
 	],
-	"releasenote": "Modular support",
-	"version": "0.3.0",
+	"releasenote": "Added new flag `closure_slavemode` to disable minification without setting `closure_disabled` in order to avoid confusion when controlled by other tools like Modular.",
+	"version": "0.3.1",
 	"url": "https://github.com/back2dos/closure"
 }
