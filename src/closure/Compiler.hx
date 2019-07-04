@@ -65,6 +65,9 @@ class Compiler {
       #if closure_warning_level
       , '--warning_level',Context.definedValue("closure_warning_level")
       #end
+      #if closure_strict_mode_input
+      , '--strict_mode_input',Context.definedValue("closure_strict_mode_input")
+      #end
       #if closure_create_source_map
       , '--create_source_map', map
       #end
